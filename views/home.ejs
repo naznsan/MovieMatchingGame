@@ -1,25 +1,32 @@
 <%- include ("partials/header") %>
 
 <header class="container">
-    <h1 class="title is-2">Welcome to the Movie Matching Game!</h1>
+    <h1 class="title is-2 has-text-dark">Welcome to the Movie Matching Game!</h1>
 </header>
 
-<main class="home-main container">
-    <div class="home-heading">
+<main class="home-main container box has-background-dark">
+    <div class="content has-text-light">
         <p>Choose a difficulty and search for some movies</p>
         <p>Or try one of the lists already made!</p>
     </div>
 
-    <form class="container">
-        <div class="field">
-            <input class="input is-primary" type="text" placeholder="Insert search term here">
+    <form class="container has-text-light" action="/play" method="GET">        
+        <div class="control radio-buttons">
+            <label class="radio">
+                <input type="radio" name="difficulty" value="easy" checked>
+                Easy
+            </label>
+            <label class="radio">
+                <input type="radio" name="difficulty" value="medium">
+                Medium
+            </label>
+            <label class="radio">
+                <input type="radio" name="difficulty" value="hard">
+                Hard
+            </label>
         </div>
-        <div class="control">
-            <input type="radio" name="difficulty" value="easy">Easy
-            <input type="radio" name="difficulty" value="medium">Medium
-            <input type="radio" name="difficulty" value="hard">Hard
-        </div>
-        <div class="control">
+        <div class="field has-addons">
+            <input class="input is-primary" type="text" placeholder="Insert search term here" name="search">
             <input class="button is-primary" type="submit">
         </div>
     </form>
