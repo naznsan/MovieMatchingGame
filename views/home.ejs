@@ -1,0 +1,30 @@
+<%- include ("partials/header") %>
+
+<header class="container">
+    <h1 class="title is-2">Welcome to the Movie Matching Game!</h1>
+</header>
+
+<main class="home-main container">
+    <div class="home-heading">
+        <p>Choose a difficulty and search for some movies</p>
+        <p>Or try one of the lists already made!</p>
+    </div>
+
+    <form class="container">
+        <div class="field">
+            <input class="input is-primary" type="text" placeholder="Insert search term here">
+        </div>
+        <div class="control">
+            <input type="radio" name="difficulty" value="easy">Easy
+            <input type="radio" name="difficulty" value="medium">Medium
+            <input type="radio" name="difficulty" value="hard">Hard
+        </div>
+        <div class="control">
+            <input class="button is-primary" type="submit">
+        </div>
+    </form>
+</main>
+
+
+
+<%- include ("partials/footer") %>    
