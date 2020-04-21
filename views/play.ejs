@@ -1,5 +1,11 @@
+<%- include ("partials/header") %>
+
 <h1>PLAY</h1>
 
 <% movieArray.forEach(movie => { %>
+    <img src="https://image.tmdb.org/t/p/w500/<%=movie['poster_path']%>">
     <li><%= movie["title"] %>- <%= movie["poster_path"] %></li>
 <% }); %>
+
+
+<%- include ("partials/footer") %>
