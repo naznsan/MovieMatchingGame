@@ -30,11 +30,9 @@ app.get("/play", function(req, res) {
     var url = `https://api.themoviedb.org/3/search/movie?api_key=089218f328b033d3d4da0471c1f40665&query=${query}`;
     request(url, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log("Data received from API");
             var data = JSON.parse(body);
             var movieArray = data["results"].slice(0, numberOfPosters);
             res.render("play", {movieArray: movieArray});
-
         }
     });
 });

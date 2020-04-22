@@ -1,11 +1,85 @@
 <%- include ("partials/header") %>
 
-<h1>PLAY</h1>
+<h3>Score:<span id="result"></span></h3>
 
-<% movieArray.forEach(movie => { %>
-    <img src="https://image.tmdb.org/t/p/w500/<%=movie['poster_path']%>">
-    <li><%= movie["title"] %>- <%= movie["poster_path"] %></li>
-<% }); %>
+<div class="grid">
+    <% 
+        var makeCardsArray = function(movieArray) {
+	        var cardsArray = [];
+	        movieArray.forEach(movie => {
+	        	let movieCurr = {};
+	        	movieCurr.name = movie["title"];
+	        	movieCurr.src = movie["poster_path"];
+	        	cardsArray.push(movieCurr);
+	        	cardsArray.push(movieCurr);
+	        });
 
+	        return cardsArray;
+        }
+
+        const cardsArray = makeCardsArray(movieArray); // Initialize cardsArray based off data fetched from API
+        cardsArray.sort(() => 0.5 - Math.random());
+    %>
+
+    <% 
+        var createBoard = function() {
+	        for (let i = 0; i < cardsArray.length; i++) {
+    %> 
+                <img src="img/blank.png" data-id=<%= i %> onclick="flipCard(this)">
+    <% 
+            }
+        }
+    %>
+
+    <% 
+        createBoard();
+    %>
+
+</div>
+
+<script>
+    var unparsedCardsArray = "<%= JSON.stringify(cardsArray) %>";
+    parsedCardsArray = unparsedCardsArray.replace(/&#34;/g, '"');
+    cardsArray = JSON.parse(parsedCardsArray);
+
+    var cardsChosen = [];
+    var cardsChosenId = [];
+    var cardsWon = [];
+
+    var checkForMatch = function() {
+        var cards = document.querySelectorAll("img");
+        console.log(cardsChosen);
+		const optionOneID = cardsChosenId[0];
+		const optionTwoID = cardsChosenId[1];
+
+		if (cardsChosen[0] === cardsChosen[1]) {
+			alert("You found a match!");
+			cards[optionOneID].setAttribute("src", "img/finished.png");
+			cards[optionTwoID].setAttribute("src", "img/finished.png");
+			cardsWon.push(cardsChosen);
+		} else {
+			cards[optionOneID].setAttribute("src", "img/blank.png");
+			cards[optionTwoID].setAttribute("src", "img/blank.png");
+			alert("Try again");
+		}
+		cardsChosen = [];
+		cardsChosenId = [];
+		if (cardsWon.length === cardsArray.length/2) {
+			alert("yay");
+		}
+    }
+
+    var flipCard = function(element) {
+        var cardId = element.getAttribute("data-id");
+        cardsChosen.push(cardsArray[cardId].src)
+        cardsChosenId.push(cardId);
+        let url = "https://image.tmdb.org/t/p/w500"
+        element.setAttribute("src", url + cardsArray[cardId].src);
+        if (cardsChosen.length === 2) {
+            setTimeout(checkForMatch, 500);
+        }
+    }
+    
+</script>
 
 <%- include ("partials/footer") %>
