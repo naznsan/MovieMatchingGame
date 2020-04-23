@@ -3,6 +3,23 @@ var app = express();
 var request = require("request");
 app.set("view engine", "ejs");
 
+var makeCardsArray = function(input, numberOfPosters) {
+    var cardsArray = [];
+    var counter = 0;
+    while(cardsArray.length < numberOfPosters * 2) {
+        let movieCurr = {};
+        movieCurr.name = input["results"][counter]["title"];
+        movieCurr.src = input["results"][counter]["poster_path"];
+        if (movieCurr.src != null) {
+            cardsArray.push(movieCurr);
+            cardsArray.push(movieCurr);
+        }
+        counter++;
+    }
+    console.log(cardsArray);
+    return cardsArray;
+}
+
 app.use(express.static("public"));
 
 app.get("/", function(req, res) {
@@ -31,22 +48,16 @@ app.get("/play", function(req, res) {
     request(url, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var data = JSON.parse(body);
-            var movieArray = data["results"].slice(0, numberOfPosters);
-            res.render("play", {movieArray: movieArray});
+            if (data["results"].length < numberOfPosters) {
+                var errorCode = 1;
+                res.render("error", {errorCode: errorCode});
+            } else {
+                var cardsArray = makeCardsArray(data, numberOfPosters);
+                res.render("play", {cardsArray: cardsArray});
+            }            
         }
     });
 });
-
-app.get("/movie", function(req, res) {
-    var url = "https://api.themoviedb.org/3/search/movie?api_key=089218f328b033d3d4da0471c1f40665&language=en-US&query=rings&page=1&include_adult=false";
-    request(url, function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var data = JSON.parse(body);
-            res.send(body);
-        }
-    })
-})
-
 
 
 app.listen(3001, function() {

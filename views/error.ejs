@@ -1,0 +1,15 @@
+<%- include ("partials/header") %>
+
+<h1>Error</h1>
+<p>Error Code #<%= errorCode %></p>
+<% 
+    if (errorCode === 1) {
+%>
+        <p>Number of posters returned was too little to create a game of this difficulty!</p>
+        <p>Please try a broader search term, or lower the difficulty.</p>
+<%
+    }
+%> 
+
+
+<%- include ("partials/footer") %>

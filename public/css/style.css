@@ -1,3 +1,8 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
 header {
     padding-top: 5em;
     padding-bottom: 4em;
@@ -24,3 +29,51 @@ form {
 .control {
     margin-bottom: 2em;
 }
+
+.grid {
+    width: 350px;
+    margin: auto auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+img {
+    width: 170px;
+    margin-top: 5px;
+}
+
+@media only screen and (min-width: 400px) {
+    .grid {
+        width: 350px;
+    }
+
+    img {
+        width: 170px;
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .grid {
+        width: 680px;
+    }
+
+    img {
+        width: 220px;
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .grid {
+        width: 950px;
+    }
+
+    img {
+        width: 150px;
+        margin-top: 10px;
+    }
+}
+
+
