@@ -77,7 +77,6 @@
 
     var flipCard = function(element) {
         var cardId = element.getAttribute("data-id");
-        console.log(cardsWon);
         
         if (cardsWon.indexOf(cardsArray[cardId].src) >= 0) {
             alert("You cannot pick a card that has already been picked!");
