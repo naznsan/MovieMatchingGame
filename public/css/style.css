@@ -76,4 +76,13 @@ img {
     }
 }
 
+h3 {
+    margin-left: 1em;
+}
+
+#go-home {
+    align-self: flex-end;
+    margin-top: 3em;
+}
+
 

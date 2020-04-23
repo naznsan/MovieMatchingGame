@@ -1,6 +1,6 @@
 <%- include ("partials/header") %>
 
-<h3>Score:<span id="result">0</span></h3>
+<h3 class="title is-5">Score:<span id="result">0</span></h3>
 
 <div class="grid">
     <% 
@@ -37,6 +37,8 @@
         createBoard();
     %>
 
+    <a id="go-home" href="/">Back to home</a>
+
 </div>
 
 <script>
@@ -50,14 +52,13 @@
 
     var checkForMatch = function() {
         var cards = document.querySelectorAll("img");
-        console.log(cardsChosen);
 		const optionOneID = cardsChosenId[0];
 		const optionTwoID = cardsChosenId[1];
 
 		if (cardsChosen[0] === cardsChosen[1]) {
 			cards[optionOneID].setAttribute("src", "img/finished.png");
 			cards[optionTwoID].setAttribute("src", "img/finished.png");
-			cardsWon.push(cardsChosen);
+			cardsWon.push(cardsChosen[0]);
 		} else {
 			cards[optionOneID].setAttribute("src", "img/blank.png");
             cards[optionTwoID].setAttribute("src", "img/blank.png");
@@ -69,13 +70,25 @@
         cardsChosenId = [];     
 
 		if (cardsWon.length === cardsArray.length/2) {
-			alert("yay");
+            let currScore = parseInt(document.querySelector("#result").innerHTML);
+			alert("Congratulations! Score: " + currScore);
 		}
     }
 
     var flipCard = function(element) {
         var cardId = element.getAttribute("data-id");
-        console.log(cardId);
+        console.log(cardsWon);
+        
+        if (cardsWon.indexOf(cardsArray[cardId].src) >= 0) {
+            alert("You cannot pick a card that has already been picked!");
+            return;
+        }
+
+        if (cardsChosenId.indexOf(cardId) >= 0) {
+            alert("You cannot pick the same card twice!");
+            return;
+        }
+
         cardsChosen.push(cardsArray[cardId].src)
         cardsChosenId.push(cardId);
         let url = "https://image.tmdb.org/t/p/w500"
